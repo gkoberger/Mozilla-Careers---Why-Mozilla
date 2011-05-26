@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--
+
+
+NO!  Shield your eyes!
+The code on this page is horrrrrrible.  So, uh, pretend it's clean and optomized
+and makes sense and doesn't include inline elements and all that jazz.
+
+
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Careers Page</title>
+	<link rel="stylesheet" type="text/css" href="style.css?i=1" />
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+  <script src="raphael.js"></script>
+  <script src="g.raphael-min.js"></script>
+  <script src="g.pie-min.js"></script>
+  <script>
+            window.onload = function () {
+                var r = Raphael("pie");
+                r.g.piechart(50, 50, 50, [65, 35, 15]);
+            };
+
+  </script>
+</head>
+
+<body id="home">
+
+  <div id="container">
+    <nav>
+      <h1 class="meta">mozilla <span>JOBS</span></h1>
+      <span class="sep">|</span>
+      <a href="#">Open Positions</a>
+      <span class="sep">|</span>
+      <a href="#">Why Mozilla?</a>
+      <span class="sep">|</span>
+      <a href="#">Benefits & Perks</a>
+      <span class="sep">|</span>
+      <a href="#">University</a>
+    </nav>
+  </div>
+
+  <div id="wall" class="off">
+
+<video width="640" height="360" poster="/images/contribute/getinvolved_video_poster.jpg" controls="controls" id="mozilla_firefox_manifesto_video" tabindex="0"><br>
+    <source type="video/webm" src="http://videos-cdn.mozilla.net/serv/webmademovies/Moz_Doc_0329_GetInvolved_ST.webm"></source>
+    <source type="video/ogg" src="http://videos-cdn.mozilla.net/serv/webmademovies/Moz_Doc_0329_GetInvolved_ST.ogv"></source>
+    <source type="video/mp4" src="http://videos-cdn.mozilla.net/serv/webmademovies/Moz_Doc_0329_GetInvolved_ST.mp4"></source>
+    <object data="http://www.mozilla.com/includes/flash/playerWithControls.swf?flv=/serv/webmademovies/Moz_Doc_0329_GetInvolved_ST.mp4&amp;autoplay=false&amp;msg=Play%20Video" style="width: 640px; height: 360px;" type="application/x-shockwave-flash"><param value="http://www.mozilla.com/includes/flash/playerWithControls.swf?flv=/serv/webmademovies/Moz_Doc_0329_GetInvolved_ST.mp4&amp;autoplay=false&amp;msg=Play%20Video" name="movie"><param value="transparent" name="wmode">
+    </object>
+  </video>
+
+  </div>
+
+  <div class="info">
+    <strong>Mozilla Wall:</strong>
+    Clicking an image will minimize the video in the center (which won't just be a black box; it will be obvious it's a video), and maximize the image.  It will
+    look much nicer with better images, fading of images, etc.
+
+    <br><br>
+    <strong>Pie Charts:</strong>
+    Pie charts use raphael.  They work like a charm; we just need data.
+  </div>
+
+
+<div id="pie"></div>
+
+  <script type="text/javascript" src="http://use.typekit.com/qlp5aem.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  <script>
+$('#test').html("");
+var images = false;
+
+$.getJSON('http://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&group_id=1032644@N20&format=json&jsoncallback=?&api_key=91de003e528296ee458376c7216e6b1f', {}, function(d) {
+    images = d.photos.photo;
+
+    images.sort( function(){ return Math.round(Math.random()) - 0.5; } );
+
+    grid = [16, 5];
+
+    var i = 0;
+    for(var x = 0; x < 16; x++) {
+        for(var y = 0; y < 6; y++) {
+            var p = images[i];
+            i++;
+
+            $('#wall').append($("<div>", {'css':{'background-image': "url(http://farm" + p.farm + ".static.flickr.com/" + p.server + "/" + p.id + "_" + p.secret
+              + ".jpg)", 'left': x*60, 'top': y*60}, 'class': 'i' + x + '-' + y}));
+        }
+    }
+
+    function newImage() {
+        var x = Math.floor(Math.random() * 6);
+        var y = Math.floor(Math.random() * 6);
+        var i = Math.floor(Math.random() * 100);
+
+        if(x > 3) {
+            x = 9 + x;
+        }
+
+        var p = images[i];
+        var c = 'i' + x + '-' + y;
+
+        $div = ($("<div>", {'css':{'background-image': "url(http://farm" + p.farm + ".static.flickr.com/" + p.server + "/" + p.id + "_" + p.secret
+                      + ".jpg)", 'left': x*60, 'top': y*60}}));
+
+        $('#wall').append($div);
+        $('#wall').find('.' + c).remove();
+        $div.addClass(c);
+    }
+
+    setInterval(newImage, 1000);
+
+});
+
+$('#wall').delegate('img', 'click', function() {
+  $('.selected').removeClass('selected');
+  /*
+  $s.removeClass('selected').attr('style', $s.attr('data-box'))
+  */
+  $(this).addClass('selected').attr('style', '');
+
+
+  var x = 0, y = 0;
+
+  $('#wall').removeClass('off').addClass('on');
+  $('#wall div(.selected)').each(function(){
+      if (x * 80 > 950) { x = 0; y++; }
+      $(this).css('left', x * 80).css('top', y * 80);
+      $(this).attr('data-box', $(this).attr('style'));
+      x++;
+  });
+
+
+});
+
+  </script>
+</body>
+</html>
+

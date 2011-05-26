@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Careers Page</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+
+<body id="home">
+
+  <div id="container">
+    <nav>
+      <h1 class="meta">mozilla <span>JOBS</span></h1>
+      <span class="sep">|</span>
+      <a href="#">Open Positions</a>
+      <span class="sep">|</span>
+      <a href="#">Why Mozilla?</a>
+      <span class="sep">|</span>
+      <a href="#">Benefits & Perks</a>
+      <span class="sep">|</span>
+      <a href="#">University</a>
+    </nav>
+  </div>
+
+  <div id="wall" class="off">
+
+  </div>
+
+  <script type="text/javascript" src="http://use.typekit.com/qlp5aem.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  <script>
+$('#test').html("");
+var images = false;
+
+$.getJSON('http://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&group_id=1032644@N20&format=json&jsoncallback=?&api_key=91de003e528296ee458376c7216e6b1f', {}, function(d) {
+    images = d.photos.photo;
+
+    images.sort( function(){ return Math.round(Math.random()) - 0.5; } );
+
+    for(var row = 10; row >= 0; row--) {
+    $.each(getPoints(150, 465, row * 15, row + 4), function(i, f){
+        var p = images.pop();
+        $('#wall').append($("<img>", {'src':"http://farm" + p.farm + ".static.flickr.com/" + p.server + "/" + p.id + "_" + p.secret + ".jpg", "class": "r" + Math.floor(Math.random() * 3), "css": {'top': f[0], 'left': f[1]}}));
+    });
+}
+
+
+});
+
+$('#wall').delegate('img', 'click', function() {
+  $('.selected').removeClass('selected');
+  /*
+  $s.removeClass('selected').attr('style', $s.attr('data-box'))
+  */
+  $(this).addClass('selected').attr('style', '');
+
+
+  var x = 0, y = 0;
+
+  $('#wall').removeClass('off').addClass('on');
+  $('#wall img:not(.selected)').each(function(){
+      if (x * 80 > 950) { x = 0; y++; }
+      $(this).css('left', x * 80).css('top', y * 80);
+      $(this).attr('data-box', $(this).attr('style'));
+      x++;
+  });
+
+
+});
+
+
+    function getPoints( start_x, start_y, radius, amount ) {
+        start_x = parseInt(start_x);
+        start_y = parseInt(start_y);
+
+        var alpha = Math.PI * 2 / parseInt(amount);
+        var points = [];
+
+        for(var i=0; i < amount; i++ ) {
+            var theta = alpha * i,
+                p = [start_x + Math.cos( theta ) * radius, start_y + Math.sin( theta ) * radius];
+            points[i] = p;
+        }
+
+        return points;
+    }
+
+  </script>
+</body>
+</html>
+

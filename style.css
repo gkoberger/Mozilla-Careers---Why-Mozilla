@@ -1,0 +1,177 @@
+/*------------------------------------*\
+  RESET
+\*------------------------------------*/
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0b1 | 201101
+   NOTE:WORK IN PROGRESS
+   USE WITH CAUTION AND TEST WITH ABANDON */
+
+html,body,div,span,applet,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+a,abbr,acronym,address,big,cite,code,
+del,dfn,em,img,ins,kbd,q,s,samp,
+small,strike,strong,sub,sup,tt,var,
+b,u,i,center,
+dl,dt,dd,ol,ul,li,
+fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td,
+article,aside,canvas,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section,summary,
+time,mark,audio,video{
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  font:inherit;
+  vertical-align:baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section{
+  display:block;
+}
+body{
+  line-height:1;
+}
+ol,ul{
+  list-style:none;
+}
+blockquote,q{
+  quotes:none;
+}
+blockquote:before,blockquote:after,
+q:before,q:after{
+  content:'';
+  content:none;
+}
+/* remember to define visible focus styles!
+:focus{
+  outline:?????;
+} */
+
+/* remember to highlight inserts somehow! */
+ins{
+  text-decoration:none;
+}
+del{
+  text-decoration:line-through;
+}
+
+table{
+  border-collapse:collapse;
+  border-spacing:0;
+}
+
+/*------------------------------------*\
+  MAIN
+\*------------------------------------*/
+
+body {
+    background-image: url(http://mozcom-cdn.mozilla.net/img/template/page-background.png);
+    background-repeat: repeat-x;
+    border-top: 2px solid #7B7B7B;
+}
+
+#container {
+    width: 960px;
+    margin: auto;
+    padding-top: 0.7em;
+}
+
+h1 {
+    color: #777;
+    font-weight: bold;
+    font-size: 20px;
+    display: inline;
+}
+
+h1 span {
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+span.sep {
+    padding: 0 9px;
+    color: #888;
+}
+
+nav {
+    font-family: arial;
+    font-size: 12px;
+}
+
+nav a {
+    color: #067FDF;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+#wall{
+    height: 360px;
+    margin: auto;
+    margin-top: 60px;
+    overflow: hidden;
+    position: relative;
+    width: 960px;
+}
+
+#wall video {
+    left: 160px;
+    position: absolute;
+    top: 0;
+    z-index: 50;
+}
+
+#wall div { width: 60px; height: 60px; position: absolute;
+    opacity: 0.8;
+    background-size: cover;
+    -moz-transition: opacity 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+#wall div:hover {
+    opacity: 1;
+    -moz-transition: opacity 0.0s ease-in-out;
+}
+
+#wall.on img {
+    -moz-transition: left 1s ease-in-out,
+                     top 1s ease-in-out,
+                     width 1s ease-in-out,
+                     height 1s ease-in-out;
+    -moz-transform: rotate(0deg);
+    max-height: 120px;
+    max-width: 120px;
+}
+
+#wall.on img.selected {
+    border: 5px solid #FFFFFF;
+    box-shadow: 0 0 10px 0;
+    height: 320px;
+    left: 250px;
+    margin: auto;
+    max-height: none;
+    max-width: none;
+    top: 10px;
+    z-index: 15;
+}
+
+div.info {
+    padding: 50px 0pt 0pt; font-family: verdana; font-size: 12px; width: 800px; margin: auto; text-align: center; color: rgb(85, 85, 85); line-height: 1.8em;
+}
+
+div.info strong {
+    font-weight: bold;
+    display: block;
+}
+
+#pie {
+    height: 100px;
+    margin: auto;
+    width: 100px;
+}
